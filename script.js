@@ -17,12 +17,14 @@ function calculate() {
         if (result !== undefined) {
             addToHistory(display.value + " = " + result);
             display.value = result; // Display the result
-            setTimeout(() => {
-                display.value = ''; // Clear the display after showing the result
-            }, 2000);
+            
         }
     } catch (error) {
         display.value = "Error"; // Handle invalid expressions
+        setTimeout(() => {
+            display.value = ''; // Clear the display after invalid expression
+        }, 1000);
+        
     }
 }
 
