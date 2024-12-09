@@ -17,6 +17,9 @@ function calculate() {
         if (result !== undefined) {
             addToHistory(display.value + " = " + result);
             display.value = result; // Display the result
+            setTimeout(() => {
+                display.value = ''; // Clear the display after showing the result
+            }, 2000);
         }
     } catch (error) {
         display.value = "Error"; // Handle invalid expressions
@@ -41,10 +44,18 @@ function updateHistoryDisplay() {
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
-        deleteButton.onclick = () => deleteHistoryEntry(index);
+        deleteButton.onclick = () => {
+            event.stopPropagation();
+            deleteHistoryEntry(index);
+        };
 
         listItem.appendChild(deleteButton);
+        listItem.onclick = () => {
+            const result = entry.split(" = ")[1];
+            appendValue(result);
+        };
         historyList.appendChild(listItem);
+
     });
 }
 
